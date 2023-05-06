@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{room_name}}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+  <body>
+    <!-- partial:index.partial.html -->
+    <section class="msger">
+      <header class="msger-header">
+        <div id="room_name" class="msger-header-title">
+          <a href="{% url 'home' %}">
+            <input
+              id="home"
+              type="button"
+              value="< home"
+              class="msger-left-btn"
+            />
+          </a>
+          <i class="fas fa-comment-alt"></i> {{room_name}}
+        </div>
+
+        <div class="msger-header-options">
+          <span><i class="fas fa-cog"></i></span>
+        </div>
+      </header>
+
+      <main id="main" class="msger-chat"></main>
+
+      <div class="msger-inputarea">
+        <input
+          id="chat-message-input"
+          type="text"
+          class="msger-input"
+          placeholder="Enter your message..."
+        />
+        <input id="left" type="button" value="left" class="msger-left-btn" />
+        <button id="emoji-button" class="msger-emoji-btn">😄</button>
+
+        <input
+          id="chat-message-submit"
+          type="button"
+          value="Send"
+          class="msger-send-btn"
+        />
+      </div>
+    </section>
+
+    {{ room_name|json_script:"room-name" }}
+    <script src="{% static 'reconnecting-websocket.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js"></script>
+
+    <script src="{% static 'elements25.js' %}"></script>
+    <script>
+      const roomName = JSON.parse(
+        document.getElementById("room-name").textContent
+      );
+
+      const chatSocket = new ReconnectingWebSocket(
+        "ws://" + window.location.host + "/ws/chat/" + roomName + "/"
+      );
+
+      chatSocket.onopen = function (e) {
+        chatSocket.send(
+          JSON.stringify({
+            command: "fetch_message",
+          })
+        );
+      };
+      var user;
+      chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        command = data["command"];
+        message = data["message"];
+        var list = document.getElementById("main");
+        if (command == "new_message") {
+          var msg = chat_element(message, user);
+          list.appendChild(msg);
+        } else {
+          user = data["user"];
+          for (let i = message.length - 1; i >= 0; i--) {
+            single_message = message[i];
+            var msg = chat_element(single_message, user);
+            list.appendChild(msg);
+          }
+        }
+        list.scrollTo(0, list.scrollHeight);
+      };
+
+      chatSocket.onclose = function (e) {
+        console.error("Chat socket closed unexpectedly");
+      };
+
+      document.querySelector("#chat-message-input").focus();
+      document.querySelector("#chat-message-input").onkeyup = function (e) {
+        if (e.keyCode === 13) {
+          // enter, return
+          document.querySelector("#chat-message-submit").click();
+        }
+      };
+
+      document.querySelector("#chat-message-submit").onclick = function (e) {
+        const messageInputDom = document.querySelector("#chat-message-input");
+        const message = messageInputDom.value;
+        chatSocket.send(
+          JSON.stringify({
+            message: message,
+            command: "new_message",
+          })
+        );
+        messageInputDom.value = "";
+      };
+
+      document.querySelector("#left").onclick = function (e) {
+        chatSocket.send(
+          JSON.stringify({
+            message: message,
+            command: "left",
+          })
+        );
+        document.location.href = "{% url 'home' %}";
+      };
+
+      const button = document.querySelector("#emoji-button");
+
+      const picker = new EmojiButton();
+
+      button.addEventListener("click", () => {
+        picker.togglePicker(button);
+      });
+
+      picker.on("emoji", (emoji) => {
+        document.querySelector("#chat-message-input").value += emoji;
+      });
+    </script>
+    <!-- partial -->
+  </body>
+</html>
