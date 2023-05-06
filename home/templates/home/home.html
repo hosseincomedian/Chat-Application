@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
 
-    <link rel="stylesheet" href="{% static 'homestyle2.css' %}" />
+    <link rel="stylesheet" href="{% static 'homestyle.css' %}" />
   </head>
   <body>
     <script src="{% static 'reconnecting-websocket.js' %}"></script>
@@ -15,10 +15,10 @@
       <a class="button" href="{% url 'logout' %}">Logout</a>
     </div>
     <h2 style="text-align: center">Chat Rooms</h2>
-    <a href="{% url 'create_room' %}">
+    <a id="room-name-submit" type="button" value="Enter">
       <div class="container darker">
-        <p style="font-weight: bold">{{chatroom.name|delete_chat}}</p>
         <p>+ add new chatroom</p>
+        <input id="room-name-input" type="text" size="100" required /><br />
       </div>
     </a>
 
@@ -57,6 +57,20 @@
           var tag = chat_element(single_message);
           a_tag.appendChild(tag);
           body_tag.appendChild(a_tag);
+        }
+      };
+      document.querySelector("#room-name-submit").onclick = function (e) {
+        var roomName = document.querySelector("#room-name-input").value;
+        if (roomName) {
+          document.querySelector("#room-name-input").value = "";
+          window.location.pathname = "/chat/" + roomName + "/";
+        } else {
+          document.querySelector("#room-name-input").focus();
+        }
+      };
+      document.querySelector("#room-name-submit").onkeyup = function (e) {
+        if (e.keyCode === 13) {
+          document.querySelector("#room-name-submit").click();
         }
       };
     </script>

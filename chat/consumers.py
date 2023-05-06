@@ -27,8 +27,8 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
 
         await self.delete_chatroom_user_db()
         await self.new_message(message, 's')
-        if self.get_chatroom_user_count_db() == 0:
-            await self.chat_room.delete()
+        if await self.get_chatroom_user_count_db() == 0:
+            await self.delete_chatroom_db()
         await self.disconnect(1001)
 
     async def fetch_message(self, message):
@@ -149,6 +149,9 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
 
         return content
 
+    @database_sync_to_async
+    def delete_chatroom_db(self):
+        self.chat_room.delete()
 
     @database_sync_to_async
     def create_message_db(self, data, mode):
