@@ -17,3 +17,19 @@ Get started and create your accounts and then log in…
 ![image](https://user-images.githubusercontent.com/46236489/236652713-569ca4bf-4b59-4f56-8938-34cbe9bfcb2d.png)
 
 
+### Step3
+On the home page, create a room for chat or enter an existing room (using add new chat room) or enter one of the previous rooms... 
+
+![image](https://user-images.githubusercontent.com/46236489/236653125-23784533-4371-406d-ab2f-16396cc3b287.png)
+
+
+### Step4
+Start chatting...
+
+![image](https://user-images.githubusercontent.com/46236489/236653272-9f0b7bb3-db65-49a3-a447-4c7ec0b57ec1.png)
+
+
+
+
+
+
