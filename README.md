@@ -13,10 +13,7 @@ Chat Application using Django Channels.
 ### Step2
 Get started and create your accounts and then log in…
 
-![image](https://user-images.githubusercontent.com/46236489/236648710-01f19695-0fe0-4c79-aa02-e521b8e2620f.png)
-![image](https://user-images.githubusercontent.com/46236489/236648783-e5cecd18-faf2-4de1-8165-09a91f6e8b76.png)
-
-
-
+![image](https://user-images.githubusercontent.com/46236489/236652698-9f75fd90-4455-4b31-a5b5-9e8b38dcdb12.png)
+![image](https://user-images.githubusercontent.com/46236489/236652713-569ca4bf-4b59-4f56-8938-34cbe9bfcb2d.png)
 
 
