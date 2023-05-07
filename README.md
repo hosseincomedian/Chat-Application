@@ -13,14 +13,13 @@ Chat Application using Django Channels.
 ### Step2
 Get started and create your accounts and then log in…
 
-![image](https://user-images.githubusercontent.com/46236489/236653418-eccde934-915c-4e4f-834b-50e1db3ce8ce.png)
-![image](https://user-images.githubusercontent.com/46236489/236653429-ff5b74de-ef8d-49a9-b6bb-5ecb525f2c4c.png)
+![image](https://user-images.githubusercontent.com/46236489/236653595-a673e65f-2bd0-470d-9cc3-f254e4f8b86c.png)
+![image](https://user-images.githubusercontent.com/46236489/236653611-1154c745-511b-4c96-96d6-8e88aa09b27e.png)
 
 ### Step3
 On the home page, create a room for chat or enter an existing room (using add new chat room) or enter one of the previous rooms... 
 
-![image](https://user-images.githubusercontent.com/46236489/236653448-9b60de08-5018-4428-ae3c-a1826393467a.png)
-
+![image](https://user-images.githubusercontent.com/46236489/236653619-7ab8d7d8-a795-4e8e-8c3f-f293d09ff9b8.png)
 
 ### Step4
 Start chatting...
